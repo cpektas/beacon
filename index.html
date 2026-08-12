@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beacon — see which Claude Code session needs you</title>
+<meta name="description" content="A tiny status light for your Claude Code sessions. One dot per session, docked in the corner of your screen, coloured by whether it's working, finished, or waiting on you.">
+<meta property="og:title" content="Beacon">
+<meta property="og:description" content="A tiny status light for your Claude Code sessions.">
+<meta property="og:type" content="website">
+<style>
+/*
+  The palette is the product's palette. Beacon's own rule is that every colour
+  on screen means a status and nothing is coloured for decoration — so this page
+  keeps that rule too: greys everywhere, and the four status colours used only
+  where they mean their status. Values are the app's actual ones.
+*/
+:root {
+  --ink:        #0e1116;
+  --ink-raised: #151a21;
+  --line:       #232a33;
+  --text:       #e6eaf0;
+  --text-dim:   #9aa5b4;
+  --text-faint: #66717f;
+
+  --needs-input: #ff9f0a;
+  --ready:       #30d158;
+  --working:     #e3b34f;
+  --idle:        #6b7684;
+  --close:       #0a84ff;
+
+  --measure: 62ch;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--close);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* --- Utility bar ------------------------------------------------------- */
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 26px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.bar strong {
+  color: var(--text);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.bar a { text-decoration: none; }
+.bar a:hover { color: var(--text-dim); }
+
+/* --- Hero --------------------------------------------------------------
+   The hero is the screen. The pill docks in its corner and does what it does
+   on a real desktop: sit there, quiet, until a colour changes. Reading the
+   headline and then noticing it already in the corner is the whole pitch.  */
+
+.hero {
+  position: relative;
+  min-height: min(88vh, 780px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 90px 0 150px;
+  background:
+    radial-gradient(120% 90% at 78% 88%, rgba(227, 179, 79, 0.07), transparent 62%),
+    linear-gradient(180deg, var(--ink) 0%, #11151b 100%);
+  border-bottom: 1px solid var(--line);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 6.2vw, 4.1rem);
+  line-height: 1.03;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  max-width: 21ch;
+  text-wrap: balance;
+}
+
+h1 .quiet { color: var(--text-faint); display: block; }
+
+.lede {
+  margin: 26px 0 0;
+  max-width: 46ch;
+  font-size: 1.14rem;
+  color: var(--text-dim);
+}
+
+.actions {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.download {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: 10px;
+  background: var(--text);
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.download:hover { background: #fff; transform: translateY(-1px); }
+.download:active { transform: translateY(0); }
+
+.requirement {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--text-faint);
+  line-height: 1.5;
+}
+
+.requirement span { display: block; }
+
+/* --- The pill ----------------------------------------------------------
+   A real rendering, not a picture of one: same order, same four colours,
+   same rule that only the working dot moves.                              */
+
+.dock {
+  position: absolute;
+  right: 28px;
+  bottom: 54px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dock-note {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--text-faint);
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 18px;
+  border-radius: 999px;
+  background: rgba(30, 36, 45, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(14px);
+}
+
+.dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.dot.needs-input { background: var(--needs-input); }
+.dot.ready       { background: var(--ready); }
+.dot.idle        { background: transparent; border: 1.5px solid var(--idle); }
+.dot.working     {
+  background: var(--working);
+  animation: breathe 2.1s ease-in-out infinite;
+}
+
+/* The one thing on the page that moves, because it is the one thing that
+   moves in the app. */
+@keyframes breathe {
+  0%, 100% { opacity: 1;    box-shadow: 0 0 0 0 rgba(227, 179, 79, 0.42); }
+  50%      { opacity: 0.55; box-shadow: 0 0 0 5px rgba(227, 179, 79, 0); }
+}
+
+/* --- Sections ----------------------------------------------------------- */
+
+section { padding: 84px 0; border-bottom: 1px solid var(--line); }
+
+h2 {
+  margin: 0 0 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.section-lede {
+  margin: 0 0 40px;
+  max-width: var(--measure);
+  font-size: 1.28rem;
+  letter-spacing: -0.012em;
+  color: var(--text);
+}
+
+/* --- The key ------------------------------------------------------------ */
+
+.key { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+
+.key-row {
+  display: grid;
+  grid-template-columns: 34px 8.5rem 1fr;
+  align-items: baseline;
+  gap: 16px;
+  padding: 20px 22px;
+  background: var(--ink-raised);
+}
+
+.key-row .dot { transform: translateY(1px); }
+
+.key-name { font-weight: 600; letter-spacing: -0.01em; }
+
+.key-what { color: var(--text-dim); font-size: 0.97rem; }
+
+/* --- Facts -------------------------------------------------------------- */
+
+.facts { display: grid; gap: 30px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+.fact h3 {
+  margin: 0 0 7px;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.fact p { margin: 0; color: var(--text-dim); font-size: 0.97rem; }
+
+/* --- Steps -------------------------------------------------------------
+   Numbered because these genuinely are a sequence — you cannot grant the
+   permission before the app exists. Nothing else on the page is numbered. */
+
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 18px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+
+.steps li:first-child { border-top: none; padding-top: 0; }
+
+.steps li::before {
+  content: counter(step);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-faint);
+  padding-top: 4px;
+}
+
+.steps strong { display: block; font-weight: 600; letter-spacing: -0.01em; }
+
+.steps p { margin: 4px 0 0; color: var(--text-dim); font-size: 0.97rem; }
+
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--ink-raised);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 2px 6px;
+}
+
+/* --- Footer ------------------------------------------------------------- */
+
+footer {
+  padding: 56px 0 72px;
+  color: var(--text-faint);
+  font-size: 0.9rem;
+}
+
+footer p { margin: 0 0 10px; max-width: var(--measure); }
+
+footer a { color: var(--text-dim); }
+
+@media (max-width: 720px) {
+  .hero { min-height: 0; padding: 64px 0 128px; }
+  .dock { right: 24px; bottom: 40px; }
+  .dock-note { display: none; }
+  .key-row { grid-template-columns: 26px 1fr; row-gap: 4px; }
+  .key-row .key-what { grid-column: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  /* Frozen mid-breath rather than at an endpoint, so a still page still shows
+     the working dot as distinct from a plain filled one. */
+  .dot.working { opacity: 0.78; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="bar">
+    <strong>Beacon</strong>
+    <a href="https://github.com/cpektas/beacon/releases" id="releases-link">Releases</a>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Four sessions running.<span class="quiet">One is waiting on you.</span></h1>
+    <p class="lede">
+      Beacon is a small status light for Claude Code. One dot per session, docked
+      in the corner of your screen, coloured by what that session is actually
+      doing. Click a dot to jump straight into it.
+    </p>
+    <div class="actions">
+      <a class="download" id="download" href="https://github.com/cpektas/beacon/releases/latest">
+        Download for macOS
+      </a>
+      <span class="requirement">
+        <span id="version-line">Free · Apple silicon and Intel</span>
+        <span>macOS 14 or later</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="dock" aria-hidden="true">
+    <span class="dock-note">lives here,<br>on top of everything</span>
+    <div class="pill">
+      <span class="dot idle"></span>
+      <span class="dot working"></span>
+      <span class="dot ready"></span>
+      <span class="dot needs-input"></span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <h2>The colours</h2>
+      <p class="section-lede">
+        Four states, ordered by how much they want you. You learn them once and
+        then you read the pill without thinking about it.
+      </p>
+      <div class="key">
+        <div class="key-row">
+          <span class="dot needs-input"></span>
+          <span class="key-name">Needs you</span>
+          <span class="key-what">Blocked on a person — a question, or a permission it can't grant itself. Nothing moves until you answer.</span>
+        </div>
+        <div class="key-row">
+          <span class="dot ready"></span>
+          <span class="key-name">Your move</span>
+          <span class="key-what">The turn finished. It's not stuck, it's done talking and waiting to hear what's next.</span>
+        </div>
+        <div class="key-row">
+          <span class="dot working"></span>
+          <span class="key-name">Working</span>
+          <span class="key-what">Busy, and the only dot that moves. Nothing is being asked of you.</span>
+        </div>
+        <div class="key-row">
+          <span class="dot idle"></span>
+          <span class="key-name">Idle</span>
+          <span class="key-what">Open, quiet, nothing pending. Present so you can see it exists, not so you'll do anything about it.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>What it does</h2>
+      <p class="section-lede">
+        The problem it solves is narrow: you started four things and you can only
+        look at one of them.
+      </p>
+      <div class="facts">
+        <div class="fact">
+          <h3>It flashes when something waits</h3>
+          <p>A brief full-screen pulse showing the same dots. It gives up after a few tries rather than nagging, and stays quiet when you're already looking at the session that wants you.</p>
+        </div>
+        <div class="fact">
+          <h3>Position is identity</h3>
+          <p>Dots sit in your sidebar's order and only ever change colour — never move. The second dot is the second session, every time you glance at it.</p>
+        </div>
+        <div class="fact">
+          <h3>It says when one is safe to close</h3>
+          <p>A finished session turns blue when the work landed and the tree is clean — a checkmark when that's certain, a question mark when it's a judgment worth a glance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Setting it up</h2>
+      <p class="section-lede">Three steps, about a minute.</p>
+      <ol class="steps">
+        <li>
+          <div>
+            <strong>Drag Beacon to your Applications folder</strong>
+            <p>Open the disk image and drag it across, then launch it. There's no Dock icon — look for the pill in the corner of your screen.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Install the status hooks</strong>
+            <p>Beacon's settings will offer to do this and explain what it changes. Without them every session reads as idle, because the hooks are what tell Beacon a turn started or finished.</p>
+            <p>The hooks are Python, so this step needs <code>python3</code> — macOS ships it with the Xcode Command Line Tools, which most people working with Claude Code already have.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Grant Accessibility access</strong>
+            <p>Only needed so that clicking a dot can bring you to that session. Beacon works without it — you just lose the jumping.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>
+      Beacon reads files Claude Code already writes on your Mac and never modifies
+      them. Nothing is sent anywhere: usage data stays local, and the setting that
+      would share an anonymised copy is off unless you turn it on.
+    </p>
+    <p>
+      It updates itself — new versions arrive within a day, or immediately from
+      Settings → Updates.
+    </p>
+    <p style="margin-top:22px">
+      <a href="https://github.com/cpektas/beacon/releases" id="footer-releases">Release notes</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+// The download button points at the current release, read from the same feed
+// the app polls. Hardcoding a version here means the site is wrong from the
+// next release onward and nobody notices, because the stale link still works.
+(function () {
+  var fallback = document.getElementById('download').getAttribute('href');
+  fetch('releases.json', { cache: 'no-cache' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (feed) {
+      if (!feed || !feed.releases) return;
+      var latest = feed.releases.filter(function (r) { return !r.prerelease; })[0];
+      if (!latest) return;
+      if (latest.dmg) document.getElementById('download').href = latest.dmg;
+      document.getElementById('version-line').textContent =
+        'Version ' + latest.version + ' · free · Apple silicon and Intel';
+    })
+    .catch(function () {
+      // Leave the button pointing at the releases page. A download that costs
+      // one extra click beats a button that does nothing.
+      document.getElementById('download').href = fallback;
+    });
+})();
+</script>
+
+</body>
+</html>
