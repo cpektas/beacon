@@ -1,3 +1,13 @@
 {
-  "releases": []
+  "releases": [
+    {
+      "version": "0.9.0",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.9.0/Beacon-0.9.0.zip",
+      "sha256": "290e9d823d11536c382f5b38678aedd37e837a95ba6038168a1ac4cd40817482",
+      "notes": "The first public build of Beacon.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.9.0/Beacon-0.9.0.dmg"
+    }
+  ]
 }
