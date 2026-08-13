@@ -40,11 +40,10 @@ when the work landed and the whole tree is clean, a question mark when that's a
 judgment rather than a guarantee. Blue isn't a fifth state; it's what "your
 move" looks like when something actually shipped.
 
-A mark wearing a **"?"** means Beacon is guessing. Claude Code sessions report
-their status outright, so their dots are facts; Codex has nothing to announce
-with, so Beacon reads its transcripts, marks every answer as inferred, and never
-raises the alarm on its behalf. A Codex dot also can't take you anywhere yet
-when clicked.
+A mark wearing a **"?"** means Beacon isn't certain. Some sessions report their
+status outright; others have to be read from the files they leave behind. A
+guess is drawn as its best colour plus a "?", never as a plain colour pretending
+to be a fact.
 
 ## Setting it up
 
