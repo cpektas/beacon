@@ -56,15 +56,20 @@ to be a fact.
 3. Grant Accessibility access when asked. This is only needed so clicking a dot
    can bring you to that session; Beacon works without it.
 
-Beacon updates itself. New versions arrive within a day, or immediately from
-Settings → Updates.
+Beacon updates itself. It checks every half hour, and a small dot on the
+menu-bar pill says when a new version is waiting — installing is still your
+click.
 
 ## Privacy
 
 Beacon reads files your agents already write on your Mac, and never modifies
-them. Nothing is sent anywhere by default: the usage log stays local, and the
-setting that would share an anonymised copy is off unless you turn it on.
-Settings → Privacy & Data lists every field that copy could ever contain.
+them. It shares anonymous usage statistics so it can be improved — clicks,
+alerts, status changes, counts and durations, tied to a random install id.
+What you're building never leaves the Mac: session names, folder names, file
+paths, prompts and window titles are stripped before anything is sent, project
+names appear only as salted hashes, and every field a shared copy can ever
+contain is listed in Settings → Privacy & Data. One switch there turns sharing
+off entirely; the full log always stays on your Mac either way.
 
 ## Reporting a problem
 
