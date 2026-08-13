@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.10.2",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.10.2/Beacon-0.10.2.zip",
+      "sha256": "2878951c12be0fbbe7aea49250449d26bd6f8f81bdfc1efbbbd079d70efa2a4c",
+      "notes": "Corrects Beacon's own usage reporting, and an orange session now says its piece once while you're working right there instead of flashing until you answer it.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.10.2/Beacon-0.10.2.dmg"
+    },
+    {
       "version": "0.10.1",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.10.1/Beacon-0.10.1.zip",
       "sha256": "5dc8647afdffe399a9aa5ec4ae1d2c0806897606aaf28fb2311efd234af27367",
