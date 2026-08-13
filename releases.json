@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.10.1",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.10.1/Beacon-0.10.1.zip",
+      "sha256": "5dc8647afdffe399a9aa5ec4ae1d2c0806897606aaf28fb2311efd234af27367",
+      "notes": "Corrects Beacon's own usage reporting \u2014 no changes to what you see.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.10.1/Beacon-0.10.1.dmg"
+    },
+    {
       "version": "0.10.0",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.10.0/Beacon-0.10.0.zip",
       "sha256": "607e9131a76caccc91b2cdd8152206020e52b6d1b9e8de57773e4bbe387deee8",
