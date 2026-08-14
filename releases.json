@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.11.1",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.11.1/Beacon-0.11.1.zip",
+      "sha256": "2ea24a50714a7b1a62ae3d80f15979d9055ea84c04712e482e64b0549d7fc608",
+      "notes": "The work timer now introduces itself to people who have never used it.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.11.1/Beacon-0.11.1.dmg"
+    },
+    {
       "version": "0.11.0",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.11.0/Beacon-0.11.0.zip",
       "sha256": "bb91eab03a9f3ed2ff83c43d27773ec78b3eb1d8be754f58a6da96b622ba2036",
