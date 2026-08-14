@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.11.0",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.11.0/Beacon-0.11.0.zip",
+      "sha256": "bb91eab03a9f3ed2ff83c43d27773ec78b3eb1d8be754f58a6da96b622ba2036",
+      "notes": "Report a problem now asks what went wrong and sends it \u2014 no folder, no homework.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.11.0/Beacon-0.11.0.dmg"
+    },
+    {
       "version": "0.10.2",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.10.2/Beacon-0.10.2.zip",
       "sha256": "2878951c12be0fbbe7aea49250449d26bd6f8f81bdfc1efbbbd079d70efa2a4c",
