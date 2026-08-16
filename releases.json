@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.11.3",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.11.3/Beacon-0.11.3.zip",
+      "sha256": "1b6899fc831b9b497af60e7b6a3305fb4c9a33f74a7c81cd8c9d558a41bb9787",
+      "notes": "Clicking a pinned session now opens it, and a Codex dot goes to its thread.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.11.3/Beacon-0.11.3.dmg"
+    },
+    {
       "version": "0.11.2",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.11.2/Beacon-0.11.2.zip",
       "sha256": "18594d3c9f3e90095eabf4644cde55049fc2012639977f94ed5bb2d20383789e",
