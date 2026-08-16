@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.11.2",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.11.2/Beacon-0.11.2.zip",
+      "sha256": "18594d3c9f3e90095eabf4644cde55049fc2012639977f94ed5bb2d20383789e",
+      "notes": "A fresh install opens on today's work, not on every tab you ever left open. A finished Codex session says so once instead of forever.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.11.2/Beacon-0.11.2.dmg"
+    },
+    {
       "version": "0.11.1",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.11.1/Beacon-0.11.1.zip",
       "sha256": "2ea24a50714a7b1a62ae3d80f15979d9055ea84c04712e482e64b0549d7fc608",
