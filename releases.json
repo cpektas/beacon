@@ -4,7 +4,7 @@
       "version": "0.11.4",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.11.4/Beacon-0.11.4.zip",
       "sha256": "8e5fecca0565781cad61a11b0f3a854f14d7f58304d6aedcbca0e45c87e622ee",
-      "notes": "Cross-agent navigation, reliable Codex focus tracking, and clearer status lights.",
+      "notes": "- Beacon now follows the exact Codex conversation you focus, so the \u201cyou\u2019re here\u201d ring and seen state stay with the right thread.\n- Active Codex work stays yellow, and ordinary Codex green and yellow dots no longer show unhelpful question marks.\n- Beacon can automatically hand off between visible Claude, Codex, editor, and terminal sessions when another session needs you or finishes.\n- Orange takes priority over green, then blue; typing, switching sessions, or clicking a dot cancels the automatic hop.\n- Automatic handoffs only open existing tabs, threads, or live terminals\u2014they never import a duplicate session.",
       "minimumSystemVersion": "14.0",
       "prerelease": false,
       "dmg": "https://github.com/cpektas/beacon/releases/download/v0.11.4/Beacon-0.11.4.dmg"
