@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.11.4",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.11.4/Beacon-0.11.4.zip",
+      "sha256": "8e5fecca0565781cad61a11b0f3a854f14d7f58304d6aedcbca0e45c87e622ee",
+      "notes": "Cross-agent navigation, reliable Codex focus tracking, and clearer status lights.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.11.4/Beacon-0.11.4.dmg"
+    },
+    {
       "version": "0.11.3",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.11.3/Beacon-0.11.3.zip",
       "sha256": "1b6899fc831b9b497af60e7b6a3305fb4c9a33f74a7c81cd8c9d558a41bb9787",
