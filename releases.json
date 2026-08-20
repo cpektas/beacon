@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.12.0",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.12.0/Beacon-0.12.0.zip",
+      "sha256": "13d73f215acaeb94b6c6ff3be35de36acc66b5dfb432805e917afb274057eb09",
+      "notes": "- Beacon has a new graphite pilot-light design, with clearer idle, working, waiting, and ready-to-close states at every size.\n- Switching between Claude and Codex now keeps the focus ring on the session actually in front, and automatic handoffs no longer drift to another app.\n- Delegated agents stay grouped under their parent session, with a live count for background work and more detail on hover or in the session list.\n- Hidden or continued sessions return when real work restarts, and stopping a work timer now responds immediately while its report finishes loading.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.12.0/Beacon-0.12.0.dmg"
+    },
+    {
       "version": "0.11.4",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.11.4/Beacon-0.11.4.zip",
       "sha256": "8e5fecca0565781cad61a11b0f3a854f14d7f58304d6aedcbca0e45c87e622ee",

@@ -1,9 +1,9 @@
 # Beacon
 
 A small status light for your coding agents — [Claude Code](https://claude.com/claude-code)
-and Codex, side by side. One dot per session, docked in the corner of your
-screen, coloured by what that session is actually doing. Click a dot to land
-back in it.
+and Codex, side by side. One graphite pilot light per top-level session, docked
+in the corner of your screen and coloured by what that session is actually
+doing. Click a light to land back in it.
 
 **[Download for macOS →](https://cpektas.github.io/beacon/)**
 
@@ -18,13 +18,16 @@ working with Claude Code already have.
 - **The whole board at a glance.** Every session you have running, in one row of
   dots across both agents, grouped by the project each belongs to. Dots only
   change colour, never move, so the third dot is the same work every time.
-- **A nudge when you're the one holding it up, and a way back in.** A brief
-  pulse when something blocks on you — quiet if you're already in that session,
-  and it gives up rather than nags. Click the dot and Beacon raises that
-  terminal window or opens that tab.
-- **Being caught up before you switch back** is the third job, and it isn't
-  built yet. The first attempt was removed rather than shipped; it's being
-  redone.
+- **A nudge when you're the one holding it up, and a way back in.** A blocked
+  session keeps pulsing until it is resolved; a completed turn announces itself
+  once. After the first pulse, Beacon quiets repetition while you are actively
+  working in an agent host, and lets you snooze a flash for three to ten
+  minutes. Click the light and Beacon raises that terminal window or opens that
+  tab.
+- **Parallel work without a wall of lights.** Delegated agents stay grouped
+  under the session that started them. A small neutral number shows live
+  background work; hover or open the session list for the agent and command
+  breakdown. The count never changes the session's status colour.
 
 ## What the colours mean
 
@@ -35,20 +38,15 @@ working with Claude Code already have.
 | 🟡 | **Working** | Busy, and the only dot that moves. Nothing is being asked of you. |
 | ⚪ | **Idle** | Open, quiet, nothing pending. |
 
-A finished session turns **blue** when it's also safe to close — a checkmark
-when the work landed and the whole tree is clean, a question mark when that's a
-judgment rather than a guarantee. Blue isn't a fifth state; it's what "your
-move" looks like when something actually shipped.
-
-A mark wearing a **"?"** means Beacon isn't certain. Some sessions report their
-status outright; others have to be read from the files they leave behind. A
-guess is drawn as its best colour plus a "?", never as a plain colour pretending
-to be a fact.
+A finished session turns **blue** when work landed this turn and the whole tree
+is clean. Blue isn't a fifth state; it's the deterministic ready-to-close form
+of "your move."
 
 ## Setting it up
 
 1. Open the disk image and drag Beacon to your Applications folder, then launch
-   it. There's no Dock icon — look for the pill in the corner of your screen.
+   it. There's no Dock icon — the first-run guide opens as a normal window and
+   the pill lives in the corner of your screen.
 2. Open its settings and press **Install them** when it offers to install the
    status hooks for Claude Code. They're what lets a session say when a turn
    starts and finishes; without them those sessions all read as idle. Codex

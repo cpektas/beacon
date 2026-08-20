@@ -23,19 +23,12 @@
   --text-dim:   #9aa5b4;
   --text-faint: #66717f;
 
-  --needs-input: #ff9f0a;
-  --ready:       #30d158;
-  /* AgentStatus.workingYellow, dark variant — rgb(1.00, 0.92, 0.23). This page
-     is dark, so it takes the dark answer, like the three system colours around
-     it. It read #e3b34f (the old amber) for a day after the yellow was rotated
-     to ~53° on 2026-08-11, which taught the one colour the app had just
-     stopped using — on the section whose only job is teaching the four. The
-     hero glow and the breathe keyframe held that same retired amber a day
-     longer than the swatch did, which is the argument for keeping every
-     appearance of a status colour derived from one value, not typed twice. */
-  --working:     #ffeb3b;
+  /* AgentStatus's optical-glass palette, not macOS system accents. */
+  --needs-input: #b81f1a;
+  --ready:       #85ad47;
+  --working:     #f5a621;
   --idle:        #6b7684;
-  --close:       #0a84ff;
+  --close:       #2e7dbf;
 
   --measure: 62ch;
   --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
@@ -107,7 +100,7 @@ a { color: inherit; }
   justify-content: center;
   padding: 90px 0 150px;
   background:
-    radial-gradient(120% 90% at 78% 88%, rgba(255, 235, 59, 0.06), transparent 62%),
+    radial-gradient(120% 90% at 78% 88%, rgba(245, 166, 33, 0.06), transparent 62%),
     linear-gradient(180deg, var(--ink) 0%, #11151b 100%);
   border-bottom: 1px solid var(--line);
 }
@@ -190,42 +183,69 @@ h1 .quiet { color: var(--text-faint); display: block; }
 .pill {
   display: flex;
   align-items: center;
-  gap: 11px;
-  padding: 13px 18px;
+  gap: 15px;
+  padding: 15px 20px;
   border-radius: 999px;
-  background: rgba(30, 36, 45, 0.86);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.10), transparent 28%),
+    linear-gradient(160deg, #242424 0%, #111 54%, #080808 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 1px 1px 1px rgba(255, 255, 255, 0.12),
+    inset -2px -3px 5px rgba(0, 0, 0, 0.72),
+    0 10px 34px rgba(0, 0, 0, 0.58);
   backdrop-filter: blur(14px);
 }
 
 .dot {
-  width: 13px;
-  height: 13px;
+  --lamp: var(--idle);
+  position: relative;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   flex: none;
-  /* A dot can carry a glyph, because in the app it can: the marks that mean
-     something more than a colour are `*.circle.fill` SF Symbols drawn in the
-     mark's own colour, so the glyph is a knockout of the backdrop, never a
-     second hue. Same trick here — the glyph is painted in the surface behind
-     the dot rather than in white. */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 800;
-  line-height: 1;
-  font-style: normal;
-  color: var(--ink);
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255,255,255,0.88) 0 4%, transparent 15%),
+    radial-gradient(circle at 48% 45%, color-mix(in srgb, var(--lamp) 92%, white) 0 30%, var(--lamp) 64%, color-mix(in srgb, var(--lamp) 58%, black) 100%);
+  border: 1px solid rgba(255,255,255,0.34);
+  box-shadow:
+    0 0 0 3px #101010,
+    0 0 0 4px rgba(255,255,255,0.15),
+    0 0 7px color-mix(in srgb, var(--lamp) 28%, transparent),
+    inset -2px -3px 4px rgba(0,0,0,0.46);
 }
 
-.dot.needs-input { background: var(--needs-input); }
-.dot.ready       { background: var(--ready); }
-.dot.idle        { background: transparent; border: 1.5px solid var(--idle); }
-.dot.close       { background: var(--close); }
+.dot.needs-input { --lamp: var(--needs-input); }
+.dot.ready       { --lamp: var(--ready); }
+.dot.close       { --lamp: var(--close); }
+.dot.idle {
+  --lamp: var(--idle);
+  opacity: 0.50;
+  filter: saturate(0.25) brightness(0.56);
+}
 .dot.working     {
-  background: var(--working);
+  --lamp: var(--working);
   animation: breathe 2.1s ease-in-out infinite;
+}
+
+.dot.project-break { margin-left: 12px; }
+
+.dot[data-count]::after {
+  content: attr(data-count);
+  position: absolute;
+  right: -12px;
+  top: -12px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: #d8dde5;
+  background: #1b1b1b;
+  border: 1px solid rgba(255,255,255,0.28);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.55);
+  font: 700 9px/1 var(--sans);
 }
 
 /* Inside the key, the backdrop is the raised panel, not the page. */
@@ -234,8 +254,8 @@ h1 .quiet { color: var(--text-faint); display: block; }
 /* The one thing on the page that moves, because it is the one thing that
    moves in the app. */
 @keyframes breathe {
-  0%, 100% { opacity: 1;    box-shadow: 0 0 0 0 rgba(255, 235, 59, 0.40); }
-  50%      { opacity: 0.55; box-shadow: 0 0 0 5px rgba(255, 235, 59, 0); }
+  0%, 100% { opacity: 1;    box-shadow: 0 0 0 0 rgba(245, 166, 33, 0.40); }
+  50%      { opacity: 0.55; box-shadow: 0 0 0 5px rgba(245, 166, 33, 0); }
 }
 
 /* --- Sections ----------------------------------------------------------- */
@@ -279,15 +299,10 @@ h2 {
 
 .key-what { color: var(--text-dim); font-size: 0.97rem; }
 
-/* The blue marks are a sub-state of "your move", not a fifth colour, and the
-   "?" is a suffix that any colour can wear. Both live in the same card as the
-   four states, set in from the left so the reading order is "four states,
-   then two things that happen to them". */
+/* Blue is a deterministic sub-state of "your move", not a fifth status. */
 .key-row.sub { grid-template-columns: 34px 1fr; padding-left: 72px; }
 .key-row.sub .key-what { color: var(--text-dim); }
 .key-row.sub .key-what b { color: var(--text); font-weight: 600; }
-
-.key-marks { display: flex; gap: 7px; }
 
 /* --- Pillars ------------------------------------------------------------ */
 
@@ -376,8 +391,6 @@ footer a { color: var(--text-dim); }
   .dock-note { display: none; }
   .key-row { grid-template-columns: 26px 1fr; row-gap: 4px; }
   .key-row .key-what { grid-column: 2; }
-  /* Two 13px marks and a gap don't fit the 26px column the four states use, so
-     the sub-rows stack instead of squeezing. */
   .key-row.sub { grid-template-columns: 1fr; padding-left: 22px; row-gap: 8px; }
   .key-row.sub .key-what { grid-column: 1; }
 }
@@ -408,8 +421,8 @@ footer a { color: var(--text-dim); }
     <h1>Five sessions running.<span class="quiet">One is waiting on you.</span></h1>
     <p class="lede">
       Beacon is a small status light for your coding agents — Claude Code and
-      Codex, side by side. One dot per session, docked in the corner of your
-      screen, coloured by what that session is actually doing. Click a dot to
+      Codex, side by side. One light per session, docked in the corner of your
+      screen, coloured by what that session is actually doing. Click a light to
       land back in it.
     </p>
     <div class="actions">
@@ -427,9 +440,9 @@ footer a { color: var(--text-dim); }
     <span class="dock-note">lives here,<br>on top of everything</span>
     <div class="pill">
       <span class="dot idle"></span>
-      <span class="dot working"></span>
+      <span class="dot working" data-count="2"></span>
       <span class="dot ready"></span>
-      <span class="dot close">✓</span>
+      <span class="dot close project-break"></span>
       <span class="dot needs-input"></span>
     </div>
   </div>
@@ -440,9 +453,9 @@ footer a { color: var(--text-dim); }
     <div class="wrap">
       <h2>The colours</h2>
       <p class="section-lede">
-        Four states, ordered by how much they want you — and two things that can
-        happen to any of them. You learn it once and then you read the pill
-        without thinking about it.
+        Four states, ordered by how much they want you. Each is the same
+        graphite pilot light, so colour and motion carry the meaning without
+        tiny symbols to decode.
       </p>
       <div class="key">
         <div class="key-row">
@@ -458,7 +471,7 @@ footer a { color: var(--text-dim); }
         <div class="key-row">
           <span class="dot working"></span>
           <span class="key-name">Working</span>
-          <span class="key-what">Busy, and the only dot that moves. Nothing is being asked of you.</span>
+          <span class="key-what">Busy, and the only light that moves. Nothing is being asked of you.</span>
         </div>
         <div class="key-row">
           <span class="dot idle"></span>
@@ -466,27 +479,10 @@ footer a { color: var(--text-dim); }
           <span class="key-what">Open, quiet, nothing pending. Present so you can see it exists, not so you'll do anything about it.</span>
         </div>
         <div class="key-row sub">
-          <span class="key-marks">
-            <span class="dot close">✓</span>
-            <span class="dot close">?</span>
-          </span>
+          <span class="dot close"></span>
           <span class="key-what">
             <b>Blue: safe to close.</b> Not a fifth state — it's what "your move"
-            looks like when the work actually landed. A checkmark is a promise:
-            this turn's commit made the whole tree clean. A question mark is a
-            judgment — it looks finished, worth a glance before you close it.
-          </span>
-        </div>
-        <div class="key-row sub">
-          <span class="key-marks">
-            <span class="dot working">?</span>
-            <span class="dot ready">?</span>
-          </span>
-          <span class="key-what">
-            <b>A question mark means Beacon isn't certain.</b> Some sessions
-            report their status outright; others have to be read from the files
-            they leave behind. A guess is drawn as its best colour plus a "?",
-            never as a plain colour pretending to be a fact.
+            looks like when work landed this turn and the whole tree is clean.
           </span>
         </div>
       </div>
@@ -497,24 +493,24 @@ footer a { color: var(--text-dim); }
     <div class="wrap">
       <h2>What it does</h2>
       <p class="section-lede">
-        The problem it solves is narrow: you started five things and you can only
-        look at one of them. So there are three jobs, and two of them are built.
+        You started five things and can only look at one. Beacon keeps the board
+        stable, brings the right work back, and keeps parallel work legible.
       </p>
       <div class="facts">
         <div class="fact">
           <h3>The whole board, at a glance</h3>
-          <p>Every session you have running, in one row of dots — across both agents, grouped by the project each one belongs to.</p>
-          <p>Dots only ever change colour; they never move. The third dot is the same piece of work every time you look, so after a day you stop reading the pill and start recognising it. Point at one to see which session it is.</p>
+          <p>Every session you have running, in one row of lights — across both agents, grouped by the project each one belongs to.</p>
+          <p>Lights only ever change colour; they never move. The third light is the same piece of work every time you look, so after a day you stop reading the pill and start recognising it. Point at one to see which session it is.</p>
         </div>
         <div class="fact">
           <h3>A nudge when you're the one holding it up — and a way back in</h3>
-          <p>When something blocks on you, the screen gives a brief pulse showing the same dots. It gives up after a few tries instead of nagging, stays quiet while you're already in the session that wants you, and can be snoozed for a minute mid-flash.</p>
-          <p>Then click the dot. Beacon raises that terminal window or opens that tab — you land in the session, not in a list of them.</p>
+          <p>When something blocks on you, the screen gives a pulse showing the same lights. A blocked session keeps asking until it is resolved; a completed turn announces itself once. After the first pulse, Beacon quiets repetition while you are actively working in an agent host, and a flash can be snoozed for three to ten minutes.</p>
+          <p>Then click the light. Beacon raises that terminal window or opens that tab — you land in the session, not in a list of them.</p>
         </div>
-        <div class="fact later">
-          <h3>Caught up before you switch<span class="soon">Coming soon</span></h3>
-          <p>Coming back to a session costs more than finding it: you have to rebuild what it was doing and what it wants. The plan is for Beacon to hand you that in a sentence before you arrive, so the switch costs a read instead of a scroll.</p>
-          <p>The first attempt was built, judged not good enough, and removed rather than shipped. This is being redone.</p>
+        <div class="fact">
+          <h3>Parallel work without a wall of lights</h3>
+          <p>Delegated agents stay under the session that started them instead of pretending to be unrelated work. A small neutral number shows how many background tasks are live.</p>
+          <p>Point at the light or open the session list for the agent and command breakdown. The number is context only: the light's colour still tells you what the main session needs.</p>
         </div>
       </div>
     </div>
@@ -523,7 +519,7 @@ footer a { color: var(--text-dim); }
   <section>
     <div class="wrap">
       <h2>Setting it up</h2>
-      <p class="section-lede">Three steps, about a minute.</p>
+      <p class="section-lede">Three essentials, guided by Beacon on first launch.</p>
       <ol class="steps">
         <li>
           <div>
@@ -541,7 +537,7 @@ footer a { color: var(--text-dim); }
         <li>
           <div>
             <strong>Grant Accessibility access</strong>
-            <p>Only needed so that clicking a dot can bring you to that session. Beacon works without it — you just lose the jumping.</p>
+            <p>Only needed so that clicking a light can bring you to that session. Beacon works without it — you just lose the jumping.</p>
           </div>
         </li>
       </ol>
