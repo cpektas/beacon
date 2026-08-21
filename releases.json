@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.12.2",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.12.2/Beacon-0.12.2.zip",
+      "sha256": "d8768754a9fe22df070ff6834266db715cecf3245634283a546a3fa1f3bc961c",
+      "notes": "- Available updates now stay visible as a yellow sparkle beside the pill until you install or skip them, including after a restart or failed download.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.12.2/Beacon-0.12.2.dmg"
+    },
+    {
       "version": "0.12.1",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.12.1/Beacon-0.12.1.zip",
       "sha256": "783d80b7ac031dbbbe12c752f9437b799d13fb0a729fde1bfc80f06ade6b1a87",
