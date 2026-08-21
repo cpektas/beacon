@@ -54,9 +54,9 @@ of "your move."
 3. Grant Accessibility access when asked. This is only needed so clicking a dot
    can bring you to that session; Beacon works without it.
 
-Beacon updates itself. It checks every half hour, and a small dot on the
-menu-bar pill says when a new version is waiting — installing is still your
-click.
+Beacon updates itself. It checks every half hour, and a persistent yellow
+sparkle beside the corner pill says when a new version is waiting — installing
+is still your click.
 
 ## Privacy
 
