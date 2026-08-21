@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.12.1",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.12.1/Beacon-0.12.1.zip",
+      "sha256": "783d80b7ac031dbbbe12c752f9437b799d13fb0a729fde1bfc80f06ade6b1a87",
+      "notes": "- Hover over the corner pill for a gear that opens sessions, history, settings, and controls.\n- Opening Beacon from Applications or Spotlight now brings that same window forward when macOS hides its menu-bar item.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.12.1/Beacon-0.12.1.dmg"
+    },
+    {
       "version": "0.12.0",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.12.0/Beacon-0.12.0.zip",
       "sha256": "13d73f215acaeb94b6c6ff3be35de36acc66b5dfb432805e917afb274057eb09",
