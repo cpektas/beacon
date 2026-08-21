@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.12.3-beta.4",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.4/Beacon-0.12.3-beta.4.zip",
+      "sha256": "164592879bebe999729466ec82f9ae7bc500b9ec1c947989814f5b3af03af7de",
+      "notes": "This beta tightens Beacon\u2019s first-run experience and performance on Macs with existing agent history.\n\n- Older inactive sessions are set aside as quiet history on first launch. If you resume one later, it returns to Beacon automatically.\n- Setup stays in front, buttons respond on the first click, and the walkthrough visibly advances as soon as Beacon finds a real session.\n- Large Claude Desktop histories refresh with much less CPU work.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": true,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.4/Beacon-0.12.3-beta.4.dmg"
+    },
+    {
       "version": "0.12.3-beta.3",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.3/Beacon-0.12.3-beta.3.zip",
       "sha256": "8f5bdcff9a2e7d8d5d38bff48fe0d35cca384186a1d9b30b7c8fc18f8eaec882",
