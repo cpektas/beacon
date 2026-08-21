@@ -1,15 +1,6 @@
 {
   "releases": [
     {
-      "version": "0.12.3-beta.1",
-      "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.1/Beacon-0.12.3-beta.1.zip",
-      "sha256": "92c5c2bfe333431e4bc8546702efe8842b91e2f20b94938991b2ace710835a36",
-      "notes": "- First launch now sets old inactive sessions aside as quiet history instead of filling the pill with a wall of lights; resuming one brings it back automatically.\n- A new three-act setup explains the lights, checks Claude and Accessibility in place, and proves Beacon can return you to a real session.\n- Large Claude Desktop histories now refresh with much less CPU work.",
-      "minimumSystemVersion": "14.0",
-      "prerelease": true,
-      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.1/Beacon-0.12.3-beta.1.dmg"
-    },
-    {
       "version": "0.12.3-beta.2",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.2/Beacon-0.12.3-beta.2.zip",
       "sha256": "abb5446f71c3b388cba5e04e1eec9440f982e7a522088821407ab8a3b19831ff",
@@ -17,6 +8,15 @@
       "minimumSystemVersion": "14.0",
       "prerelease": true,
       "dmg": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.2/Beacon-0.12.3-beta.2.dmg"
+    },
+    {
+      "version": "0.12.3-beta.1",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.1/Beacon-0.12.3-beta.1.zip",
+      "sha256": "92c5c2bfe333431e4bc8546702efe8842b91e2f20b94938991b2ace710835a36",
+      "notes": "- First launch now sets old inactive sessions aside as quiet history instead of filling the pill with a wall of lights; resuming one brings it back automatically.\n- A new three-act setup explains the lights, checks Claude and Accessibility in place, and proves Beacon can return you to a real session.\n- Large Claude Desktop histories now refresh with much less CPU work.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": true,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.1/Beacon-0.12.3-beta.1.dmg"
     },
     {
       "version": "0.12.2",
