@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.12.3-beta.3",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.3/Beacon-0.12.3-beta.3.zip",
+      "sha256": "8f5bdcff9a2e7d8d5d38bff48fe0d35cca384186a1d9b30b7c8fc18f8eaec882",
+      "notes": "- First launch now sets old inactive sessions aside as quiet history instead of filling the pill with a wall of lights; resuming one brings it back automatically.\n- Setup stays in front while you open other apps, responds on the first click, and advances as soon as it finds a real session.\n- Large Claude Desktop histories now refresh with much less CPU work.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": true,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.3/Beacon-0.12.3-beta.3.dmg"
+    },
+    {
       "version": "0.12.3-beta.2",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.2/Beacon-0.12.3-beta.2.zip",
       "sha256": "abb5446f71c3b388cba5e04e1eec9440f982e7a522088821407ab8a3b19831ff",
