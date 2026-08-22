@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.12.3",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3/Beacon-0.12.3.zip",
+      "sha256": "f6415698933c9b16518a504c0a298ec6bbef1bd7eb432452c6fc9364db5fc22c",
+      "notes": "- First launch now sets older inactive sessions aside as quiet history; resuming one brings it back automatically.\n- A new hands-on walkthrough connects Beacon, proves an exact-session return, and teaches the lights, gear, and work timer by doing.\n- Large Claude Desktop histories refresh with much less CPU work.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.12.3/Beacon-0.12.3.dmg"
+    },
+    {
       "version": "0.12.3-beta.5",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.5/Beacon-0.12.3-beta.5.zip",
       "sha256": "bf3ced7a156406ce68eafdbf3a8018fb622565f10723cfd704fdae722a2ca871",
