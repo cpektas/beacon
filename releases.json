@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.12.3-beta.5",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.5/Beacon-0.12.3-beta.5.zip",
+      "sha256": "bf3ced7a156406ce68eafdbf3a8018fb622565f10723cfd704fdae722a2ca871",
+      "notes": "- Onboarding now ends with a hands-on practice pill: hover a light, open the gear, and try play/pause while each move checks itself off.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": true,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.5/Beacon-0.12.3-beta.5.dmg"
+    },
+    {
       "version": "0.12.3-beta.4",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3-beta.4/Beacon-0.12.3-beta.4.zip",
       "sha256": "164592879bebe999729466ec82f9ae7bc500b9ec1c947989814f5b3af03af7de",
