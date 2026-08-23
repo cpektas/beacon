@@ -6,8 +6,12 @@
 <title>Beacon — see which coding-agent session needs you</title>
 <meta name="description" content="A tiny status light for your coding agents. One dot per session, docked in the corner of your screen, coloured by whether it's working, finished, waiting on you, or safe to close.">
 <meta property="og:title" content="Beacon">
-<meta property="og:description" content="A tiny status light for your coding-agent sessions.">
+<meta property="og:description" content="Know what every Claude Code or Codex session is up to, be alerted when one needs you, and return in one click.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://cpektas.github.io/beacon/assets/launch/beacon-launch-poster.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <style>
 /*
   The palette is the product's palette. Beacon's own rule is that every colour
@@ -84,6 +88,7 @@ a { color: inherit; }
   letter-spacing: 0.14em;
 }
 
+.bar nav { display: flex; align-items: center; gap: 22px; }
 .bar a { text-decoration: none; }
 .bar a:hover { color: var(--text-dim); }
 
@@ -158,6 +163,23 @@ h1 .quiet { color: var(--text-faint); display: block; }
 }
 
 .requirement span { display: block; }
+
+.proof {
+  margin: 28px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  list-style: none;
+  color: var(--text-faint);
+  font: 12px/1.5 var(--mono);
+}
+
+.proof li::before {
+  content: "—";
+  margin-right: 8px;
+  color: var(--text-faint);
+}
 
 /* --- The pill ----------------------------------------------------------
    A real rendering, not a picture of one: same order, same four colours,
@@ -280,6 +302,39 @@ h2 {
   color: var(--text);
 }
 
+/* --- Film -------------------------------------------------------------- */
+
+.film-section { padding-top: 64px; }
+
+.film-heading { margin-bottom: 28px; }
+.film-heading .section-lede { margin: 0; max-width: 48ch; }
+
+.film-shell {
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 16px;
+  background: #080a0d;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.34);
+}
+
+.film-shell video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #080a0d;
+}
+
+.film-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 16px 20px 18px;
+  color: var(--text-faint);
+  font: 11.5px/1.55 var(--mono);
+}
+
+.film-caption span:last-child { text-align: right; }
+
 /* --- The key ------------------------------------------------------------ */
 
 .key { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
@@ -335,6 +390,62 @@ h2 {
 
 .fact.later h3, .fact.later p { color: var(--text-faint); }
 
+/* --- Compatibility ---------------------------------------------------- */
+
+.compatibility {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ink-raised);
+  font-size: 0.94rem;
+}
+
+.compatibility th,
+.compatibility td {
+  padding: 17px 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid var(--line);
+}
+
+.compatibility thead th {
+  border-top: 0;
+  color: var(--text-faint);
+  font: 11px/1.4 var(--mono);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.compatibility tbody th {
+  width: 27%;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.compatibility td { color: var(--text-dim); }
+.compatibility .note { display: block; margin-top: 3px; color: var(--text-faint); font-size: 0.88em; }
+
+/* --- Trust ------------------------------------------------------------ */
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--line);
+}
+
+.trust-item { padding: 24px; background: var(--ink-raised); }
+.trust-item h3 { margin: 0 0 8px; font-size: 1rem; font-weight: 600; }
+.trust-item p { margin: 0; color: var(--text-dim); font-size: 0.94rem; }
+.trust-item strong { color: var(--text); font-weight: 600; }
+
 /* --- Steps -------------------------------------------------------------
    Numbered because these genuinely are a sequence — you cannot grant the
    permission before the app exists. Nothing else on the page is numbered. */
@@ -386,13 +497,29 @@ footer p { margin: 0 0 10px; max-width: var(--measure); }
 footer a { color: var(--text-dim); }
 
 @media (max-width: 720px) {
+  .bar nav a:not(:last-child) { display: none; }
   .hero { min-height: 0; padding: 64px 0 128px; }
   .dock { right: 24px; bottom: 40px; }
   .dock-note { display: none; }
+  .film-caption { display: block; }
+  .film-caption span { display: block; }
+  .film-caption span:last-child { margin-top: 5px; text-align: left; }
   .key-row { grid-template-columns: 26px 1fr; row-gap: 4px; }
   .key-row .key-what { grid-column: 2; }
   .key-row.sub { grid-template-columns: 1fr; padding-left: 22px; row-gap: 8px; }
   .key-row.sub .key-what { grid-column: 1; }
+  .trust-grid { grid-template-columns: 1fr; }
+  .compatibility,
+  .compatibility tbody,
+  .compatibility tr,
+  .compatibility th,
+  .compatibility td { display: block; }
+  .compatibility thead { display: none; }
+  .compatibility tbody th { width: auto; padding-bottom: 4px; }
+  .compatibility td { border-top: 0; padding-top: 0; }
+  .compatibility tr { border-top: 1px solid var(--line); }
+  .compatibility tr:first-child { border-top: 0; }
+  .compatibility tr + tr th { border-top: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -412,7 +539,11 @@ footer a { color: var(--text-dim); }
 <div class="wrap">
   <div class="bar">
     <strong>Beacon</strong>
-    <a href="https://github.com/cpektas/beacon/releases" id="releases-link">Releases</a>
+    <nav aria-label="Primary">
+      <a href="#compatibility">Compatibility</a>
+      <a href="#privacy">Privacy</a>
+      <a href="https://github.com/cpektas/beacon/releases" id="releases-link">Releases</a>
+    </nav>
   </div>
 </div>
 
@@ -420,10 +551,9 @@ footer a { color: var(--text-dim); }
   <div class="wrap">
     <h1>Five sessions running.<span class="quiet">One is waiting on you.</span></h1>
     <p class="lede">
-      Beacon is a small status light for your coding agents — Claude Code and
-      Codex, side by side. One light per session, docked in the corner of your
-      screen, coloured by what that session is actually doing. Click a light to
-      land back in it.
+      Beacon is the attention layer for Claude Code and Codex. One stable light
+      per session tells you what is working, finished, or blocked — and one
+      click returns to the exact session.
     </p>
     <div class="actions">
       <a class="download" id="download" href="https://github.com/cpektas/beacon/releases/latest">
@@ -434,6 +564,12 @@ footer a { color: var(--text-dim); }
         <span>macOS 14 or later</span>
       </span>
     </div>
+    <ul class="proof" aria-label="Product facts">
+      <li>Runs locally</li>
+      <li>No account</li>
+      <li>Notarized for macOS</li>
+      <li>Telemetry is optional</li>
+    </ul>
   </div>
 
   <div class="dock" aria-hidden="true">
@@ -449,6 +585,30 @@ footer a { color: var(--text-dim); }
 </header>
 
 <main>
+  <section class="film-section" aria-labelledby="film-title">
+    <div class="wrap">
+      <div class="film-heading">
+        <h2 id="film-title">Beacon in 22 seconds</h2>
+        <p class="section-lede">
+          Know what every session is up to. Be alerted when one needs you.
+          Navigate back without hunting for it.
+        </p>
+      </div>
+      <div class="film-shell">
+        <video id="launch-film" muted loop playsinline controls preload="metadata"
+          poster="assets/launch/beacon-launch-poster.jpg"
+          aria-label="A real Beacon session finishes, flashes for attention, and returns to its exact Codex task when clicked.">
+          <source src="assets/launch/beacon-launch-16x9.mp4" type="video/mp4">
+          A real Beacon session finishes, alerts the user, and returns to its exact Codex task in one click.
+        </video>
+        <div class="film-caption">
+          <span>Real Beacon interaction · no simulated cursor</span>
+          <span>Claude Code + Codex · local · free</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="wrap">
       <h2>The colours</h2>
@@ -484,6 +644,76 @@ footer a { color: var(--text-dim); }
             <b>Blue: safe to close.</b> Not a fifth state — it's what "your move"
             looks like when work landed this turn and the whole tree is clean.
           </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="compatibility">
+    <div class="wrap">
+      <h2>Works where you work</h2>
+      <p class="section-lede">
+        Claude Code and Codex can live in desktop apps, editors, or terminals.
+        Beacon uses the safest return route each host can prove, and refuses to
+        guess when it cannot identify an exact tab.
+      </p>
+      <table class="compatibility">
+        <thead>
+          <tr><th>Where the session lives</th><th>What Beacon does</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Claude app</th>
+            <td>Status, project grouping, background-task context, and exact return to the session.</td>
+          </tr>
+          <tr>
+            <th>Codex app</th>
+            <td>Status, project grouping, background-task context, and exact return to the thread. No status hook required.</td>
+          </tr>
+          <tr>
+            <th>Cursor</th>
+            <td>Return to the exact integrated terminal through Beacon's bundled extension.<span class="note">Installed from Beacon's settings; field-tested with multiple Cursor windows.</span></td>
+          </tr>
+          <tr>
+            <th>VS Code</th>
+            <td>The same bundled extension and exact-terminal route are included.<span class="note">Packaged and covered by tests; still awaiting an independent field check in VS Code itself.</span></td>
+          </tr>
+          <tr>
+            <th>Terminal.app &amp; iTerm2</th>
+            <td>Return to the owning app and, when macOS Automation access can prove it, the exact tab.</td>
+          </tr>
+          <tr>
+            <th>Other terminals</th>
+            <td>Status and return to the owning terminal window.<span class="note">Exact panes depend on what that terminal exposes; Beacon raises nothing rather than choosing a stranger's tab.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <h2>Local by design</h2>
+      <p class="section-lede">
+        Beacon needs local access because the product is a bridge back to local
+        work. The boundary is explicit, inspectable, and switchable.
+      </p>
+      <div class="trust-grid">
+        <div class="trust-item">
+          <h3>What it reads</h3>
+          <p>Session records your agents already write, plus process and window facts needed to identify the right host.</p>
+        </div>
+        <div class="trust-item">
+          <h3>What it changes</h3>
+          <p>Only Beacon-owned settings, its Claude Code status hook, and its optional Cursor/VS Code extension. <strong>Agent session files are never modified.</strong></p>
+        </div>
+        <div class="trust-item">
+          <h3>What can be shared</h3>
+          <p>Anonymous counts, durations, status changes, clicks, and outcomes tied to a random install id. Settings lists every field and turns sharing off in one switch.</p>
+        </div>
+        <div class="trust-item">
+          <h3>What never leaves the Mac</h3>
+          <p>Prompts, responses, session names, folder names, file paths, window titles, code, and anything else about what you are building.</p>
         </div>
       </div>
     </div>
@@ -561,6 +791,8 @@ footer a { color: var(--text-dim); }
       sparkle beside the corner pill tells you when a new version is waiting.
     </p>
     <p style="margin-top:22px">
+      <a href="#compatibility">Compatibility</a> ·
+      <a href="#privacy">Privacy</a> ·
       <a href="https://github.com/cpektas/beacon/releases" id="footer-releases">Release notes</a>
     </p>
   </div>
@@ -587,6 +819,17 @@ footer a { color: var(--text-dim); }
       // one extra click beats a button that does nothing.
       document.getElementById('download').href = fallback;
     });
+})();
+
+// Autoplay stays off for people who ask macOS to reduce motion. Everyone else
+// gets the full proof immediately; native controls keep pause and replay obvious.
+(function () {
+  var film = document.getElementById('launch-film');
+  if (!film || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  film.play().catch(function () {
+    // Autoplay policy can still refuse. The poster and native play button are
+    // the complete fallback, so there is no custom control to get out of sync.
+  });
 })();
 </script>
 
