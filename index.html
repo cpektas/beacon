@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Beacon — see which coding-agent session needs you</title>
-<meta name="description" content="A tiny status light for your coding agents. One dot per session, docked in the corner of your screen, coloured by whether it's working, finished, waiting on you, or safe to close.">
+<meta name="description" content="A tiny status light for your coding agents. One dot per session, docked in the corner of your screen, coloured by whether it's working, finished, waiting on you, or idle.">
 <meta property="og:title" content="Beacon">
 <meta property="og:description" content="Know what every Claude Code or Codex session is up to, be alerted when one needs you, and return in one click.">
 <meta property="og:type" content="website">
@@ -239,7 +239,6 @@ h1 .quiet { color: var(--text-faint); display: block; }
 
 .dot.needs-input { --lamp: var(--needs-input); }
 .dot.ready       { --lamp: var(--ready); }
-.dot.close       { --lamp: var(--close); }
 .dot.idle {
   --lamp: var(--idle);
   opacity: 0.50;
@@ -249,8 +248,6 @@ h1 .quiet { color: var(--text-faint); display: block; }
   --lamp: var(--working);
   animation: breathe 2.1s ease-in-out infinite;
 }
-
-.dot.project-break { margin-left: 12px; }
 
 .dot[data-count]::after {
   content: attr(data-count);
@@ -325,15 +322,10 @@ h2 {
 }
 
 .film-caption {
-  display: flex;
-  justify-content: space-between;
-  gap: 28px;
   padding: 16px 20px 18px;
   color: var(--text-faint);
   font: 11.5px/1.55 var(--mono);
 }
-
-.film-caption span:last-child { text-align: right; }
 
 /* --- The key ------------------------------------------------------------ */
 
@@ -353,11 +345,6 @@ h2 {
 .key-name { font-weight: 600; letter-spacing: -0.01em; }
 
 .key-what { color: var(--text-dim); font-size: 0.97rem; }
-
-/* Blue is a deterministic sub-state of "your move", not a fifth status. */
-.key-row.sub { grid-template-columns: 34px 1fr; padding-left: 72px; }
-.key-row.sub .key-what { color: var(--text-dim); }
-.key-row.sub .key-what b { color: var(--text); font-weight: 600; }
 
 /* --- Pillars ------------------------------------------------------------ */
 
@@ -446,44 +433,6 @@ h2 {
 .trust-item p { margin: 0; color: var(--text-dim); font-size: 0.94rem; }
 .trust-item strong { color: var(--text); font-weight: 600; }
 
-/* --- Steps -------------------------------------------------------------
-   Numbered because these genuinely are a sequence — you cannot grant the
-   permission before the app exists. Nothing else on the page is numbered. */
-
-.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
-
-.steps li {
-  counter-increment: step;
-  display: grid;
-  grid-template-columns: 42px 1fr;
-  gap: 18px;
-  padding: 22px 0;
-  border-top: 1px solid var(--line);
-}
-
-.steps li:first-child { border-top: none; padding-top: 0; }
-
-.steps li::before {
-  content: counter(step);
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--text-faint);
-  padding-top: 4px;
-}
-
-.steps strong { display: block; font-weight: 600; letter-spacing: -0.01em; }
-
-.steps p { margin: 4px 0 0; color: var(--text-dim); font-size: 0.97rem; }
-
-code {
-  font-family: var(--mono);
-  font-size: 0.86em;
-  background: var(--ink-raised);
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  padding: 2px 6px;
-}
-
 /* --- Footer ------------------------------------------------------------- */
 
 footer {
@@ -501,13 +450,8 @@ footer a { color: var(--text-dim); }
   .hero { min-height: 0; padding: 64px 0 128px; }
   .dock { right: 24px; bottom: 40px; }
   .dock-note { display: none; }
-  .film-caption { display: block; }
-  .film-caption span { display: block; }
-  .film-caption span:last-child { margin-top: 5px; text-align: left; }
   .key-row { grid-template-columns: 26px 1fr; row-gap: 4px; }
   .key-row .key-what { grid-column: 2; }
-  .key-row.sub { grid-template-columns: 1fr; padding-left: 22px; row-gap: 8px; }
-  .key-row.sub .key-what { grid-column: 1; }
   .trust-grid { grid-template-columns: 1fr; }
   .compatibility,
   .compatibility tbody,
@@ -578,7 +522,6 @@ footer a { color: var(--text-dim); }
       <span class="dot idle"></span>
       <span class="dot working" data-count="2"></span>
       <span class="dot ready"></span>
-      <span class="dot close project-break"></span>
       <span class="dot needs-input"></span>
     </div>
   </div>
@@ -602,7 +545,6 @@ footer a { color: var(--text-dim); }
           A real Beacon session finishes, alerts the user, and returns to its exact Codex task in one click.
         </video>
         <div class="film-caption">
-          <span>Real Beacon interaction · no simulated cursor</span>
           <span>Claude Code + Codex · local · free</span>
         </div>
       </div>
@@ -637,13 +579,6 @@ footer a { color: var(--text-dim); }
           <span class="dot idle"></span>
           <span class="key-name">Idle</span>
           <span class="key-what">Open, quiet, nothing pending. Present so you can see it exists, not so you'll do anything about it.</span>
-        </div>
-        <div class="key-row sub">
-          <span class="dot close"></span>
-          <span class="key-what">
-            <b>Blue: safe to close.</b> Not a fifth state — it's what "your move"
-            looks like when work landed this turn and the whole tree is clean.
-          </span>
         </div>
       </div>
     </div>
@@ -746,33 +681,6 @@ footer a { color: var(--text-dim); }
     </div>
   </section>
 
-  <section>
-    <div class="wrap">
-      <h2>Setting it up</h2>
-      <p class="section-lede">Three essentials, guided by Beacon on first launch.</p>
-      <ol class="steps">
-        <li>
-          <div>
-            <strong>Drag Beacon to your Applications folder</strong>
-            <p>Open the disk image and drag it across, then launch it. There's no Dock icon — look for the pill in the corner of your screen.</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <strong>Install the status hooks for Claude Code</strong>
-            <p>Beacon's settings will offer to do this and explain what it changes. They're what lets a Claude Code session say a turn started or finished, rather than being guessed at — without them those sessions all read as idle. Codex needs no setup: Beacon reads what it already writes.</p>
-            <p>The hooks are Python, so this step needs <code>python3</code> — macOS ships it with the Xcode Command Line Tools, which most people working with Claude Code already have.</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <strong>Grant Accessibility access</strong>
-            <p>Only needed so that clicking a light can bring you to that session. Beacon works without it — you just lose the jumping.</p>
-          </div>
-        </li>
-      </ol>
-    </div>
-  </section>
 </main>
 
 <footer>
