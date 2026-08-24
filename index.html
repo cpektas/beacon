@@ -786,7 +786,7 @@ footer a { color: var(--text-dim); }
   var endpoint = 'https://beacon-telemetry.alicempektas.workers.dev/web';
   var allowedSources = [
     'direct', 'reddit_claudecode', 'reddit_codex', 'show_hn',
-    'creator', 'newsletter', 'other'
+    'creator', 'newsletter', 'organic_search', 'share', 'other'
   ];
   var requested = new URLSearchParams(window.location.search).get('source');
   var source = allowedSources.indexOf(requested) >= 0 ? requested :
