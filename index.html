@@ -699,8 +699,8 @@ footer a { color: var(--text-dim); }
       sparkle beside the corner pill tells you when a new version is waiting.
     </p>
     <p>
-      This page records an anonymous visit, the first demo play, and a download
-      click so launch efforts can be measured. The identifier lasts only for
+      This page records an anonymous visit, whether the demo reaches five seconds,
+      and a download click so launch efforts can be measured. The identifier lasts only for
       this browser tab; no account, page URL, referrer, free text, or persistent
       cookie is collected.
     </p>
@@ -765,10 +765,10 @@ footer a { color: var(--text-dim); }
 
   var film = document.getElementById('launch-film');
   if (film) {
-    var played = false;
-    film.addEventListener('play', function () {
-      if (played) return;
-      played = true;
+    var watched = false;
+    film.addEventListener('timeupdate', function () {
+      if (watched || film.currentTime < 5) return;
+      watched = true;
       record('web_film_play');
     });
   }
