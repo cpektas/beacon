@@ -1,0 +1,25 @@
+#!/bin/sh
+# Claude Code plugins cannot preflight an interpreter during installation.
+# Resolve the same known-good Python locations as the Beacon app and stay
+# silent when none exists: hooks must never interrupt or add output to a turn.
+
+HOOK="${CLAUDE_PLUGIN_ROOT}/scripts/beacon-status.py"
+
+for PYTHON in \
+  /opt/homebrew/bin/python3 \
+  /usr/local/bin/python3 \
+  /Library/Frameworks/Python.framework/Versions/Current/bin/python3
+do
+  if [ -x "$PYTHON" ]; then
+    exec "$PYTHON" "$HOOK" 2>/dev/null
+    exit 0
+  fi
+done
+
+# /usr/bin/python3 is a Command Line Tools installer stub on a clean Mac. Only
+# invoke it after xcode-select proves the toolchain behind it is present.
+if /usr/bin/xcode-select -p >/dev/null 2>&1 && [ -x /usr/bin/python3 ]; then
+  exec /usr/bin/python3 "$HOOK" 2>/dev/null
+fi
+
+exit 0

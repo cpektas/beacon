@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "beacon",
+  "description": "Official Claude Code integration for the Beacon macOS session status light.",
+  "owner": {
+    "name": "Cem Pektas"
+  },
+  "plugins": [
+    {
+      "name": "beacon",
+      "description": "Reports Claude Code lifecycle status to the local Beacon macOS app.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Cem Pektas"
+      },
+      "source": "./plugins/beacon",
+      "category": "productivity",
+      "homepage": "https://cpektas.github.io/beacon/"
+    }
+  ]
+}

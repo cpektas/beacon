@@ -1,0 +1,12 @@
+{
+  "name": "beacon",
+  "description": "Reports Claude Code lifecycle status to the local Beacon macOS app.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Cem Pektas"
+  },
+  "homepage": "https://cpektas.github.io/beacon/",
+  "repository": "https://github.com/cpektas/beacon",
+  "license": "Proprietary",
+  "keywords": ["beacon", "status", "sessions", "context-switching"]
+}
