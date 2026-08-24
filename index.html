@@ -698,6 +698,12 @@ footer a { color: var(--text-dim); }
       It updates itself — it checks every half hour, and a persistent yellow
       sparkle beside the corner pill tells you when a new version is waiting.
     </p>
+    <p>
+      This page records an anonymous visit, the first demo play, and a download
+      click so launch efforts can be measured. The identifier lasts only for
+      this browser tab; no account, page URL, referrer, free text, or persistent
+      cookie is collected.
+    </p>
     <p style="margin-top:22px">
       <a href="#compatibility">Compatibility</a> ·
       <a href="#privacy">Privacy</a> ·
@@ -707,6 +713,77 @@ footer a { color: var(--text-dim); }
 </footer>
 
 <script>
+// The website funnel deliberately does not use the app's persistent install id.
+// One random id lives for one browser tab, and the relay accepts only three
+// event names plus a short source allowlist. Referrers and arbitrary campaign
+// strings never enter the payload.
+(function () {
+  var endpoint = 'https://beacon-telemetry.alicempektas.workers.dev/web';
+  var allowedSources = [
+    'direct', 'reddit_claudecode', 'reddit_codex', 'show_hn',
+    'creator', 'newsletter', 'other'
+  ];
+  var requested = new URLSearchParams(window.location.search).get('source');
+  var source = allowedSources.indexOf(requested) >= 0 ? requested :
+    (requested ? 'other' : 'direct');
+
+  function randomID() {
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+      return 'web-' + window.crypto.randomUUID();
+    }
+    return 'web-' + Date.now().toString(16) + '-' +
+      Math.random().toString(16).slice(2) + Math.random().toString(16).slice(2);
+  }
+
+  var visitID;
+  try {
+    visitID = window.sessionStorage.getItem('beacon-web-visit');
+    if (!visitID) {
+      visitID = randomID();
+      window.sessionStorage.setItem('beacon-web-visit', visitID);
+    }
+  } catch (_) {
+    // A browser that blocks storage still gets an ephemeral in-memory visit.
+    visitID = randomID();
+  }
+
+  function record(event) {
+    var body = JSON.stringify({
+      event: event,
+      source: source,
+      visit_id: visitID,
+      event_id: randomID()
+    });
+    var blob = new Blob([body], { type: 'text/plain;charset=UTF-8' });
+    if (navigator.sendBeacon && navigator.sendBeacon(endpoint, blob)) return;
+    fetch(endpoint, { method: 'POST', body: blob, keepalive: true }).catch(function () {
+      // Analytics can fail without degrading the page or the download.
+    });
+  }
+
+  record('web_landing_view');
+
+  var film = document.getElementById('launch-film');
+  if (film) {
+    var played = false;
+    film.addEventListener('play', function () {
+      if (played) return;
+      played = true;
+      record('web_film_play');
+    });
+  }
+
+  var download = document.getElementById('download');
+  if (download) {
+    var clicked = false;
+    download.addEventListener('click', function () {
+      if (clicked) return;
+      clicked = true;
+      record('web_download_click');
+    });
+  }
+})();
+
 // The download button points at the current release, read from the same feed
 // the app polls. Hardcoding a version here means the site is wrong from the
 // next release onward and nobody notices, because the stale link still works.
