@@ -164,6 +164,17 @@ h1 .quiet { color: var(--text-faint); display: block; }
 
 .requirement span { display: block; }
 
+.brew-install {
+  display: inline-block;
+  margin-top: 15px;
+  color: var(--text-faint);
+  font: 12px/1.5 var(--mono);
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+}
+
+.brew-install:hover { color: var(--text-dim); }
+
 .proof {
   margin: 28px 0 0;
   padding: 0;
@@ -533,6 +544,7 @@ footer a { color: var(--text-dim); }
         <span>macOS 14 or later</span>
       </span>
     </div>
+    <a class="brew-install" href="https://github.com/cpektas/homebrew-beacon"><code>brew install --cask cpektas/beacon/beacon</code></a>
     <ul class="proof" aria-label="Product facts">
       <li>Runs locally</li>
       <li>No account</li>
