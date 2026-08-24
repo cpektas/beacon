@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to manage multiple Codex sessions on macOS</title>
+<meta name="description" content="Track parallel Codex app and terminal sessions, keep subagents under their parent task, and return to the right session in one click.">
+<link rel="canonical" href="https://cpektas.github.io/beacon/guides/manage-multiple-codex-sessions/">
+<meta property="og:title" content="How to manage multiple Codex sessions on macOS">
+<meta property="og:description" content="A stable view of parallel Codex sessions, including live background work and direct return to the right task.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://cpektas.github.io/beacon/guides/manage-multiple-codex-sessions/">
+<link rel="stylesheet" href="../guide.css">
+</head>
+<body>
+<div class="wrap"><header class="bar"><a href="../../"><strong>Beacon</strong></a><nav><a href="../../#compatibility">Compatibility</a><a href="https://github.com/cpektas/beacon/releases">Releases</a></nav></header></div>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Guide · Codex</p>
+    <h1>How to manage multiple Codex sessions</h1>
+    <p class="lede">Codex makes parallel work easy to start. The missing layer is knowing what every task is doing after you switch away—and getting back without scanning the sidebar.</p>
+    <div class="actions"><a class="download" data-download href="https://github.com/cpektas/beacon/releases/latest">Download Beacon for macOS</a><span class="requirement">Free · no account<br>macOS 14 or later</span></div>
+  </div>
+</section>
+
+<main><div class="wrap"><article>
+  <p class="answer"><strong>The short answer:</strong> keep one top-level item per Codex session, show background work as context beneath it, and make the session's state—not its latest log line—the thing you scan.</p>
+
+  <h2>Why a task list is not quite enough</h2>
+  <p>The Codex app sidebar tells you which tasks exist. It is less useful as an ambient monitor when another app is in front, or when several projects each have multiple tasks. You still have to return and inspect them to learn whether a turn is running, finished or blocked.</p>
+  <p>This is a context-switching cost: each check interrupts the work in front of you, even when the answer is “still running.” A good external view should make that answer visible without becoming a second task manager.</p>
+
+  <h2>Keep delegated work attached to its parent</h2>
+  <p>A Codex session can launch subagents and deterministic commands. Rendering each one as an independent session makes the board expand precisely when the parent is doing useful parallel work. Instead, show the parent once and attach a live count or breakdown to it.</p>
+  <p>The parent light should still describe the top-level turn. Background metadata adds context; it should not turn a finished parent back to “working” merely because a shell is still alive.</p>
+
+  <h2>The four states worth scanning</h2>
+  <div class="states">
+    <div class="state"><strong><span class="lamp red"></span>Needs you</strong><span>A decision, permission or answer is blocking the session.</span></div>
+    <div class="state"><strong><span class="lamp green"></span>Your move</strong><span>The turn finished and there is a result to read.</span></div>
+    <div class="state"><strong><span class="lamp amber"></span>Working</strong><span>The top-level agent is actively running the turn.</span></div>
+    <div class="state"><strong><span class="lamp grey"></span>Idle</strong><span>The task is open but has nothing outstanding.</span></div>
+  </div>
+
+  <h2>How Beacon handles Codex</h2>
+  <p>Beacon reads the local session facts Codex already maintains. In the Codex desktop app it does not need an extra status hook. Sessions stay in a stable project-grouped row, background agents and commands roll into their parent, and clicking a light returns to the exact Codex task.</p>
+  <p>For Codex running in an integrated terminal, Beacon's VS Code and Cursor extension supplies the missing terminal identity. Terminal.app and iTerm2 use their native automation routes when macOS permits an exact match.</p>
+
+  <h2>A low-friction working pattern</h2>
+  <ol>
+    <li>Start one session per coherent outcome, not one per command.</li>
+    <li>Delegate inside that session when the work genuinely separates.</li>
+    <li>Leave long-running turns alone while their light is working.</li>
+    <li>Respond to blocked sessions before reading completed ones.</li>
+    <li>Use the session light as the return route so the right task opens immediately.</li>
+  </ol>
+
+  <p class="note">Beacon never modifies Codex's session records. Prompt text, responses, code, task names and project paths stay local. Optional usage sharing is limited to documented counts, durations and interaction outcomes.</p>
+
+  <section class="related"><h2>Related guides</h2><ul><li><a href="../manage-multiple-claude-code-sessions/">Managing multiple Claude Code sessions</a></li><li><a href="../ai-coding-agent-notifications-macos/">Useful coding-agent notifications on macOS</a></li></ul></section>
+</article></div></main>
+
+<footer><div class="wrap"><p><a href="../../">Beacon</a> · Free native macOS app for Claude Code and Codex · <a href="https://github.com/cpektas/beacon/releases">Download and release notes</a></p><p>This page records an anonymous visit and download click with a tab-only id; no URL, referrer, free text or persistent cookie is collected.</p></div></footer>
+<script src="../funnel.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to manage multiple Claude Code sessions on macOS</title>
+<meta name="description" content="A practical way to track parallel Claude Code sessions, know which one needs you, and return to the right session without hunting through windows.">
+<link rel="canonical" href="https://cpektas.github.io/beacon/guides/manage-multiple-claude-code-sessions/">
+<meta property="og:title" content="How to manage multiple Claude Code sessions on macOS">
+<meta property="og:description" content="Track working, finished, blocked and idle sessions in one stable view—and jump back to the right one.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://cpektas.github.io/beacon/guides/manage-multiple-claude-code-sessions/">
+<link rel="stylesheet" href="../guide.css">
+</head>
+<body>
+<div class="wrap"><header class="bar"><a href="../../"><strong>Beacon</strong></a><nav><a href="../../#compatibility">Compatibility</a><a href="https://github.com/cpektas/beacon/releases">Releases</a></nav></header></div>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Guide · Claude Code</p>
+    <h1>How to manage multiple Claude Code sessions</h1>
+    <p class="lede">Parallel sessions stop helping when you spend the day reopening tabs, checking whether work finished, and reconstructing what each window was doing.</p>
+    <div class="actions"><a class="download" data-download href="https://github.com/cpektas/beacon/releases/latest">Download Beacon for macOS</a><span class="requirement">Free · no account<br>macOS 14 or later</span></div>
+  </div>
+</section>
+
+<main><div class="wrap"><article>
+  <p class="answer"><strong>The short answer:</strong> give every session a stable place, track whether it is working, blocked, finished or idle, and alert only when your action matters. The goal is not more windows—it is fewer manual checks.</p>
+
+  <h2>The problem is attention, not process management</h2>
+  <p>Claude Code already lets you run several sessions. The hard part begins after the second or third: one is executing tests, another has finished, one is waiting for permission, and the window in front of you hides all of that.</p>
+  <p>A terminal multiplexer or careful window layout can keep sessions organized, but neither tells you what changed while you were elsewhere. A useful control surface needs to answer two questions immediately: <strong>which session needs me now?</strong> and <strong>how do I get back to it?</strong></p>
+
+  <h2>Use four states, not a list of activity</h2>
+  <p>Raw logs create another surface to monitor. A small state model is easier to scan:</p>
+  <div class="states">
+    <div class="state"><strong><span class="lamp red"></span>Needs you</strong><span>Blocked on a question or permission. Work cannot continue until you respond.</span></div>
+    <div class="state"><strong><span class="lamp green"></span>Your move</strong><span>The turn finished and the result has not been acknowledged yet.</span></div>
+    <div class="state"><strong><span class="lamp amber"></span>Working</strong><span>The top-level session owns the turn. Nothing is being asked of you.</span></div>
+    <div class="state"><strong><span class="lamp grey"></span>Idle</strong><span>The session exists, but nothing is outstanding.</span></div>
+  </div>
+
+  <h2>A practical parallel-session workflow</h2>
+  <ol>
+    <li><strong>Start sessions normally.</strong> Do not adopt a new worktree or orchestration method just to monitor them.</li>
+    <li><strong>Keep their positions stable.</strong> If items constantly reorder, every glance becomes a fresh search.</li>
+    <li><strong>Group by project.</strong> A subagent or background command belongs with the session that launched it, not as a new top-level project.</li>
+    <li><strong>Let blocked work interrupt; let completion notify once.</strong> Repeated completion alerts create noise, while a blocked session really cannot proceed.</li>
+    <li><strong>Return directly.</strong> A useful session manager should open the exact Claude Code session or terminal tab, not merely raise the host app.</li>
+  </ol>
+
+  <h2>How Beacon handles Claude Code</h2>
+  <p>Beacon is a native macOS app that sits in a screen corner with one stable light per Claude Code or Codex session. Claude Code reports lifecycle changes through a small local hook. Beacon groups sessions by inferred project, shows live background-task context under the parent session, and returns to the exact session when the host exposes a safe route.</p>
+  <p>In the Claude desktop app, Beacon can return to the session directly. In Cursor and VS Code integrated terminals, its companion editor extension maps the session process to the exact terminal. In other terminals, Beacon uses the most specific route that terminal makes available and refuses to guess between ambiguous tabs.</p>
+  <p class="note">Prompts, responses, code, session names, project names and file paths stay on your Mac. Optional telemetry contains bounded counts, timings and outcomes, and can be disabled in Settings.</p>
+
+  <h2>What Beacon deliberately does not do</h2>
+  <p>Beacon is not a worktree manager, prompt queue, agent launcher or prescribed methodology. That is intentional: it should make the Claude Code workflow you already chose easier to see and re-enter, rather than requiring you to move the work into Beacon.</p>
+
+  <section class="related"><h2>Related guides</h2><ul><li><a href="../manage-multiple-codex-sessions/">Managing multiple Codex sessions</a></li><li><a href="../ai-coding-agent-notifications-macos/">Useful coding-agent notifications on macOS</a></li></ul></section>
+</article></div></main>
+
+<footer><div class="wrap"><p><a href="../../">Beacon</a> · Free native macOS app for Claude Code and Codex · <a href="https://github.com/cpektas/beacon/releases">Download and release notes</a></p><p>This page records an anonymous visit and download click with a tab-only id; no URL, referrer, free text or persistent cookie is collected.</p></div></footer>
+<script src="../funnel.js"></script>
+</body>
+</html>

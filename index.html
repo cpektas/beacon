@@ -377,6 +377,30 @@ h2 {
 
 .fact.later h3, .fact.later p { color: var(--text-faint); }
 
+/* --- Guides ----------------------------------------------------------- */
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--line);
+}
+
+.guide-card {
+  display: block;
+  padding: 24px;
+  background: var(--ink-raised);
+  text-decoration: none;
+}
+
+.guide-card:hover { background: #181e26; }
+.guide-card span { color: var(--text-faint); font: 10px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.guide-card h3 { margin: 10px 0 8px; font-size: 1.02rem; line-height: 1.35; }
+.guide-card p { margin: 0; color: var(--text-dim); font-size: .93rem; }
+
 /* --- Compatibility ---------------------------------------------------- */
 
 .compatibility {
@@ -453,6 +477,7 @@ footer a { color: var(--text-dim); }
   .key-row { grid-template-columns: 26px 1fr; row-gap: 4px; }
   .key-row .key-what { grid-column: 2; }
   .trust-grid { grid-template-columns: 1fr; }
+  .guide-grid { grid-template-columns: 1fr; }
   .compatibility,
   .compatibility tbody,
   .compatibility tr,
@@ -584,6 +609,33 @@ footer a { color: var(--text-dim); }
     </div>
   </section>
 
+  <section id="guides">
+    <div class="wrap">
+      <h2>Practical guides</h2>
+      <p class="section-lede">
+        The workflow behind the lights: how to keep parallel agent sessions
+        useful without turning them into another system to manage.
+      </p>
+      <div class="guide-grid">
+        <a class="guide-card" href="guides/manage-multiple-claude-code-sessions/">
+          <span>Claude Code</span>
+          <h3>Manage multiple Claude Code sessions</h3>
+          <p>Track working, finished and blocked sessions without adopting a new orchestration method.</p>
+        </a>
+        <a class="guide-card" href="guides/manage-multiple-codex-sessions/">
+          <span>Codex</span>
+          <h3>Manage multiple Codex sessions</h3>
+          <p>Keep background agents under their parent and return to the exact task.</p>
+        </a>
+        <a class="guide-card" href="guides/ai-coding-agent-notifications-macos/">
+          <span>macOS alerts</span>
+          <h3>Make agent notifications useful</h3>
+          <p>Distinguish blocked work from completed work and make every alert actionable.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section id="compatibility">
     <div class="wrap">
       <h2>Works where you work</h2>
@@ -707,6 +759,7 @@ footer a { color: var(--text-dim); }
     <p style="margin-top:22px">
       <a href="#compatibility">Compatibility</a> ·
       <a href="#privacy">Privacy</a> ·
+      <a href="#guides">Guides</a> ·
       <a href="https://github.com/cpektas/beacon/releases" id="footer-releases">Release notes</a>
     </p>
   </div>

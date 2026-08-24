@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cpektas.github.io/beacon/sitemap.xml

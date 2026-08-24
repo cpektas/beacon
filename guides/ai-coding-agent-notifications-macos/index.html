@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Better Claude Code and Codex notifications on macOS</title>
+<meta name="description" content="How coding-agent alerts should distinguish blocked work from completed work, stay visible without becoming noisy, and return you to the exact session.">
+<link rel="canonical" href="https://cpektas.github.io/beacon/guides/ai-coding-agent-notifications-macos/">
+<meta property="og:title" content="Better Claude Code and Codex notifications on macOS">
+<meta property="og:description" content="Alert when your action matters, distinguish blocked from finished, and make the alert a route back to the exact session.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://cpektas.github.io/beacon/guides/ai-coding-agent-notifications-macos/">
+<link rel="stylesheet" href="../guide.css">
+</head>
+<body>
+<div class="wrap"><header class="bar"><a href="../../"><strong>Beacon</strong></a><nav><a href="../../#compatibility">Compatibility</a><a href="https://github.com/cpektas/beacon/releases">Releases</a></nav></header></div>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Guide · macOS alerts</p>
+    <h1>Better notifications for coding agents</h1>
+    <p class="lede">“Something happened” is not enough. A useful alert tells you whether work is blocked or merely finished—and becomes the shortest route back to the session.</p>
+    <div class="actions"><a class="download" data-download href="https://github.com/cpektas/beacon/releases/latest">Download Beacon for macOS</a><span class="requirement">Free · no account<br>macOS 14 or later</span></div>
+  </div>
+</section>
+
+<main><div class="wrap"><article>
+  <p class="answer"><strong>The short answer:</strong> notify once when a turn completes, persist when a session is blocked on the user, suppress repetition while the user is already working in an agent host, and make every alert open the exact session.</p>
+
+  <h2>Completion and blockage are different events</h2>
+  <p>A completed turn has produced a result. It deserves a clear signal, but repeating that signal indefinitely adds no information. A blocked turn is different: the agent cannot continue without a person. If that state disappears into Notification Center, parallel work quietly stalls.</p>
+  <p>The alert policy should reflect that difference. Completion can announce itself and remain visibly unread. A blocked session should stay visibly urgent until the provider reports a real transition.</p>
+
+  <h2>What useful agent alerts should do</h2>
+  <ol>
+    <li><strong>Carry state.</strong> “Finished” and “needs your decision” should never look identical.</li>
+    <li><strong>Respect attention.</strong> If you are already typing in Claude Code, Codex or the terminal hosting another session, one pulse is enough to establish the fact.</li>
+    <li><strong>Remain legible after the animation.</strong> A persistent light is more useful than a notification banner you missed.</li>
+    <li><strong>Navigate precisely.</strong> Clicking should open the exact task or terminal tab, not leave you searching inside the app.</li>
+    <li><strong>Avoid inferred urgency.</strong> A long-running shell or subagent is context, not proof that the top-level session owns the turn.</li>
+  </ol>
+
+  <h2>Beacon's alert model</h2>
+  <div class="states">
+    <div class="state"><strong><span class="lamp red"></span>Blocked</strong><span>Deep red and persistent because the session cannot proceed without you.</span></div>
+    <div class="state"><strong><span class="lamp green"></span>Finished</strong><span>Solid green and unread. The completion pulse does not repeat forever.</span></div>
+    <div class="state"><strong><span class="lamp amber"></span>Working</strong><span>Warm amber breathes while the provider says the top-level turn is active.</span></div>
+    <div class="state"><strong><span class="lamp grey"></span>Idle</strong><span>Hollow grey stays present without asking for attention.</span></div>
+  </div>
+
+  <p>Beacon shows those states in a small corner-docked pill for every Claude Code and Codex session. When attention is needed, the same lights pulse over the current screen. You can snooze a flash briefly, but the underlying state does not lie: a blocked light remains red and a finished light remains green until the agent actually moves.</p>
+
+  <h2>Why not rely only on native notifications?</h2>
+  <p>Native macOS notifications are useful delivery, but they are chronological. Parallel coding work is spatial: you need the current state of all sessions, not a history of which banner arrived last. A stable status surface complements notifications by preserving the board after the banner is gone.</p>
+  <p>That stability also makes the system learnable. The fourth light is always the same session; only its color changes. Over time you recognize the work before reading a label.</p>
+
+  <p class="note">Beacon's attention rules are local and configurable. Prompts, responses, code, project names, session names and paths are not included in its optional anonymous telemetry.</p>
+
+  <section class="related"><h2>Related guides</h2><ul><li><a href="../manage-multiple-claude-code-sessions/">Managing multiple Claude Code sessions</a></li><li><a href="../manage-multiple-codex-sessions/">Managing multiple Codex sessions</a></li></ul></section>
+</article></div></main>
+
+<footer><div class="wrap"><p><a href="../../">Beacon</a> · Free native macOS app for Claude Code and Codex · <a href="https://github.com/cpektas/beacon/releases">Download and release notes</a></p><p>This page records an anonymous visit and download click with a tab-only id; no URL, referrer, free text or persistent cookie is collected.</p></div></footer>
+<script src="../funnel.js"></script>
+</body>
+</html>
