@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.12.4",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.12.4/Beacon-0.12.4.zip",
+      "sha256": "8f619d1f21b0644076ca8b76db2fda39717ec4b12accc8448ad561164e778026",
+      "notes": "- Drag Beacon without losing your place: the pill now stays still while a quiet screen preview highlights where it will land.\n- Dock Beacon vertically or horizontally in any corner, including vertically in the bottom-right.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.12.4/Beacon-0.12.4.dmg"
+    },
+    {
       "version": "0.12.3",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.12.3/Beacon-0.12.3.zip",
       "sha256": "f6415698933c9b16518a504c0a298ec6bbef1bd7eb432452c6fc9364db5fc22c",
