@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.13.0",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.13.0/Beacon-0.13.0.zip",
+      "sha256": "42225e64ba4ef2aaf6da42fe480252fcdcdaab6eb5dc30562b0541740658d95c",
+      "notes": "- Press and hold any session light to make the row wiggle, then drag to reorder, pin priority sessions above the line, and click away when you are done.\n- See Codex and Claude Code capacity at a glance, including 5-hour, weekly, model-specific limits such as Fable, reset times, and each session's context window.\n- Choose which limits appear, whether they read as used or remaining, and which one drives the gauge beside the session rail.\n- Hover details are now compact and truthful, with the selected limit first and stale or unavailable readings left out instead of guessed.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.13.0/Beacon-0.13.0.dmg"
+    },
+    {
       "version": "0.12.4",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.12.4/Beacon-0.12.4.zip",
       "sha256": "8f619d1f21b0644076ca8b76db2fda39717ec4b12accc8448ad561164e778026",
