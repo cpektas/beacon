@@ -16,14 +16,19 @@ working with Claude Code already have.
 ## What it does
 
 - **The whole board at a glance.** Every session you have running, in one row of
-  dots across both agents, grouped by the project each belongs to. Dots only
-  change colour, never move, so the third dot is the same work every time.
+  dots across both agents, grouped by the project each belongs to. Dots stay
+  put unless you deliberately rearrange them; hover shows the session and its
+  context use, while the capacity rim keeps account limits one glance away.
 - **A nudge when you're the one holding it up, and a way back in.** A blocked
   session keeps pulsing until it is resolved; a completed turn announces itself
   once. After the first pulse, Beacon quiets repetition while you are actively
   working in an agent host, and lets you snooze a flash for three to ten
-  minutes. Click the light and Beacon raises that terminal window or opens that
-  tab.
+  minutes. Click the light, or use a compact keyboard switcher for waiting and
+  pinned work, and Beacon raises that terminal window or opens that tab.
+- **Your priority set, kept close.** Pin the sessions that matter, drag them
+  into your order, collapse everything else, hide noise, and add optional glass
+  identity marks. Choose a global shortcut in Settings, repeat it to cycle the
+  waiting-and-pinned set, then press Return to jump.
 - **Parallel work without a wall of lights.** Delegated agents stay grouped
   under the session that started them. A small neutral number shows live
   background work; hover or open the session list for the agent and command

@@ -1,6 +1,15 @@
 {
   "releases": [
     {
+      "version": "0.13.2",
+      "url": "https://github.com/cpektas/beacon/releases/download/v0.13.2/Beacon-0.13.2.zip",
+      "sha256": "d449e744ef9614f6cab199f2c7bf4e3e970c8b1ed8b004dbb3d6d26dc95ae0ea",
+      "notes": "- Open a compact keyboard switcher for the sessions that need you and anything you pinned, then repeat the shortcut to cycle and press Return to jump. You choose the global shortcut in Settings.\n- Pin, hide, reorder, label, and collapse session lights so priority work stays visible without losing the truthful project grouping underneath.\n- See Claude Code and Codex capacity at a glance, including 5-hour, weekly, model-specific limits, truthful reset times, and rounded per-session context usage.\n- Exact-session navigation now works when Claude's sidebar is hidden: Beacon reveals it only long enough to select the target, then restores the layout.\n- Provider tripwires now detect and explain silent failures in session discovery, lifecycle, titles, capacity, and exact-session navigation instead of waiting for a person to notice missing or stale information.",
+      "minimumSystemVersion": "14.0",
+      "prerelease": false,
+      "dmg": "https://github.com/cpektas/beacon/releases/download/v0.13.2/Beacon-0.13.2.dmg"
+    },
+    {
       "version": "0.13.0",
       "url": "https://github.com/cpektas/beacon/releases/download/v0.13.0/Beacon-0.13.0.zip",
       "sha256": "42225e64ba4ef2aaf6da42fe480252fcdcdaab6eb5dc30562b0541740658d95c",

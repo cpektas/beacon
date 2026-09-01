@@ -338,6 +338,35 @@ h2 {
   font: 11.5px/1.55 var(--mono);
 }
 
+.film-conversion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px;
+  border-top: 1px solid var(--line);
+  background: var(--ink-raised);
+}
+
+.film-conversion-copy strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.film-conversion-copy span {
+  display: block;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.film-conversion .download {
+  flex: none;
+  padding: 11px 20px;
+  font-size: 0.92rem;
+}
+
 /* --- The key ------------------------------------------------------------ */
 
 .key { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
@@ -489,6 +518,7 @@ footer a { color: var(--text-dim); }
   .key-row .key-what { grid-column: 2; }
   .trust-grid { grid-template-columns: 1fr; }
   .guide-grid { grid-template-columns: 1fr; }
+  .film-conversion { align-items: flex-start; flex-direction: column; }
   .compatibility,
   .compatibility tbody,
   .compatibility tr,
@@ -536,7 +566,7 @@ footer a { color: var(--text-dim); }
       click returns to the exact session.
     </p>
     <div class="actions">
-      <a class="download" id="download" href="https://github.com/cpektas/beacon/releases/latest">
+      <a class="download" id="download" data-download href="https://github.com/cpektas/beacon/releases/latest">
         Download for macOS
       </a>
       <span class="requirement">
@@ -583,6 +613,15 @@ footer a { color: var(--text-dim); }
         </video>
         <div class="film-caption">
           <span>Claude Code + Codex · local · free</span>
+        </div>
+        <div class="film-conversion">
+          <div class="film-conversion-copy">
+            <strong>Ready in about a minute.</strong>
+            <span>Drag to Applications, follow two setup checks, and keep your existing agent workflow.</span>
+          </div>
+          <a class="download" data-download href="https://github.com/cpektas/beacon/releases/latest">
+            Download Beacon
+          </a>
         </div>
       </div>
     </div>
@@ -729,12 +768,17 @@ footer a { color: var(--text-dim); }
         <div class="fact">
           <h3>The whole board, at a glance</h3>
           <p>Every session you have running, in one row of lights — across both agents, grouped by the project each one belongs to.</p>
-          <p>Lights only ever change colour; they never move. The third light is the same piece of work every time you look, so after a day you stop reading the pill and start recognising it. Point at one to see which session it is.</p>
+          <p>Lights stay put unless you deliberately rearrange them. Point at one to see the session and its context use; the capacity rim beside the rail keeps account limits one glance away.</p>
         </div>
         <div class="fact">
           <h3>A nudge when you're the one holding it up — and a way back in</h3>
           <p>When something blocks on you, the screen gives a pulse showing the same lights. A blocked session keeps asking until it is resolved; a completed turn announces itself once. After the first pulse, Beacon quiets repetition while you are actively working in an agent host, and a flash can be snoozed for three to ten minutes.</p>
-          <p>Then click the light. Beacon raises that terminal window or opens that tab — you land in the session, not in a list of them.</p>
+          <p>Then click the light, or open the compact keyboard switcher for waiting and pinned work. Beacon raises that terminal window or opens that tab.</p>
+        </div>
+        <div class="fact">
+          <h3>Your priority set, kept close</h3>
+          <p>Pin the sessions that matter, drag them into your order, collapse everything else, and hide genuine noise. Optional glass marks make similar-looking lights recognizable without changing their status colour.</p>
+          <p>Your chosen global shortcut opens only waiting and pinned sessions; repeat it to cycle, then press Return to jump.</p>
         </div>
         <div class="fact">
           <h3>Parallel work without a wall of lights</h3>
@@ -838,13 +882,15 @@ footer a { color: var(--text-dim); }
     });
   }
 
-  var download = document.getElementById('download');
-  if (download) {
+  var downloads = document.querySelectorAll('[data-download]');
+  if (downloads.length) {
     var clicked = false;
-    download.addEventListener('click', function () {
-      if (clicked) return;
-      clicked = true;
-      record('web_download_click');
+    downloads.forEach(function (download) {
+      download.addEventListener('click', function () {
+        if (clicked) return;
+        clicked = true;
+        record('web_download_click');
+      });
     });
   }
 })();
@@ -853,21 +899,25 @@ footer a { color: var(--text-dim); }
 // the app polls. Hardcoding a version here means the site is wrong from the
 // next release onward and nobody notices, because the stale link still works.
 (function () {
-  var fallback = document.getElementById('download').getAttribute('href');
+  var downloads = document.querySelectorAll('[data-download]');
+  if (!downloads.length) return;
+  var fallback = downloads[0].getAttribute('href');
   fetch('releases.json', { cache: 'no-cache' })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (feed) {
       if (!feed || !feed.releases) return;
       var latest = feed.releases.filter(function (r) { return !r.prerelease; })[0];
       if (!latest) return;
-      if (latest.dmg) document.getElementById('download').href = latest.dmg;
+      if (latest.dmg) downloads.forEach(function (download) {
+        download.href = latest.dmg;
+      });
       document.getElementById('version-line').textContent =
         'Version ' + latest.version + ' · free · Apple silicon and Intel';
     })
     .catch(function () {
       // Leave the button pointing at the releases page. A download that costs
       // one extra click beats a button that does nothing.
-      document.getElementById('download').href = fallback;
+      downloads.forEach(function (download) { download.href = fallback; });
     });
 })();
 
